@@ -23,6 +23,7 @@ class AuthController extends Controller
                  properties: [
                      new OA\Property(property: 'email', type: 'string', example: 'user@example.com'),
                      new OA\Property(property: 'password', type: 'string', example: 'password123'),
+                     new OA\Property(property: 'device_name', type: 'string', example: 'android'),
                  ]
              )
          ),
@@ -49,13 +50,14 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
+            'device_name' => 'required',
         ]);
 
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            $token = $user->createToken('Personal Access Token')->plainTextToken;
+            $token = $user->createToken($request->device_name)->plainTextToken;
 
             return response()->json([
                 'token' => $token,
@@ -79,6 +81,7 @@ class AuthController extends Controller
                      new OA\Property(property: 'email', type: 'string', example: 'user@example.com'),
                      new OA\Property(property: 'password', type: 'string', example: 'password123'),
                      new OA\Property(property: 'password_confirmation', type: 'string', example: 'password123'),
+                     new OA\Property(property: 'device_name', type: 'string', example: 'android'),
                  ]
              )
          ),
@@ -106,6 +109,7 @@ class AuthController extends Controller
             'name' => 'required|string',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|confirmed',
+            'device_name' => 'required',
         ]);
 
         $user = User::create([
@@ -114,7 +118,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $token = $user->createToken('Personal Access Token')->plainTextToken;
+        $token = $user->createToken($request->device_name)->plainTextToken;
 
         return response()->json([
             'token' => $token,

@@ -25,6 +25,10 @@
                                     "password": {
                                         "type": "string",
                                         "example": "password123"
+                                    },
+                                    "device_name": {
+                                        "type": "string",
+                                        "example": "android"
                                     }
                                 },
                                 "type": "object"
@@ -84,6 +88,10 @@
                                     "password_confirmation": {
                                         "type": "string",
                                         "example": "password123"
+                                    },
+                                    "device_name": {
+                                        "type": "string",
+                                        "example": "android"
                                     }
                                 },
                                 "type": "object"
