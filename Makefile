@@ -9,3 +9,6 @@ stop:
 
 app:
 	docker compose -f docker-compose.yml exec -u sail laravel.test bash
+
+pint:
+	./vendor/bin/pint
