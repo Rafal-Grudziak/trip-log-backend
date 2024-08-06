@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use OpenApi\Attributes as OA;
 
 #[OA\Tag(name: "Auth")]
-class ProfileController extends Controller
+class ProfileController extends BaseController
 {
+
     #[OA\Get(
         path: '/api/profile',
         summary: 'Get User Profile',
@@ -27,7 +27,7 @@ class ProfileController extends Controller
             )
         ]
     )]
-    public function profile(Request $request)
+    public function show(Request $request)
     {
         $user = Auth::user();
         return response()->json($user);

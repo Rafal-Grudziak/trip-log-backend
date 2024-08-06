@@ -5,13 +5,40 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/login": {
+        "/api/profile": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Get User Profile",
+                "operationId": "89ae2330f9c4cf3bb2ed90c8c3f43f54",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/login": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "Login",
-                "operationId": "222b2625838e3c57e017987f73598fda",
+                "operationId": "f779238bce5c5b984c773808f46fd14c",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -45,7 +72,7 @@
                                     "properties": {
                                         "token": {
                                             "type": "string",
-                                            "example": "your_jwt_token"
+                                            "example": "token"
                                         },
                                         "user": {}
                                     },
@@ -60,13 +87,35 @@
                 }
             }
         },
-        "/api/register": {
+        "/api/auth/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout",
+                "operationId": "a09608b2fbed6bd1841153fae1c6b7f2",
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged out"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/register": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "Register",
-                "operationId": "8e4e3cb7b46126f4696379d3c7eeb4ad",
+                "operationId": "f0e180cf2ce34bf385b5cf9d3169900d",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -108,7 +157,7 @@
                                     "properties": {
                                         "token": {
                                             "type": "string",
-                                            "example": "your_jwt_token"
+                                            "example": "token"
                                         },
                                         "user": {}
                                     },
@@ -121,55 +170,6 @@
                         "description": "Validation error"
                     }
                 }
-            }
-        },
-        "/api/logout": {
-            "post": {
-                "tags": [
-                    "Auth"
-                ],
-                "summary": "Logout",
-                "operationId": "ad65cbbd4e9f201619eae184a5961a98",
-                "responses": {
-                    "200": {
-                        "description": "Successfully logged out"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
-            }
-        },
-        "/api/profile": {
-            "get": {
-                "tags": [
-                    "Profile"
-                ],
-                "summary": "Get User Profile",
-                "operationId": "89ae2330f9c4cf3bb2ed90c8c3f43f54",
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
             }
         }
     },
