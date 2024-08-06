@@ -77,6 +77,17 @@ class LoginController extends BaseController
         summary: 'Logout',
         security: [['sanctum' => []]],
         tags: ['Auth'],
+        parameters: [
+            new OA\Parameter(
+                name: 'Accept',
+                in: 'header',
+                required: true,
+                schema: new OA\Schema(
+                    type: 'string',
+                    default: 'application/json'
+                )
+            )
+        ],
         responses: [
             new OA\Response(
                 response: 200,
@@ -84,7 +95,7 @@ class LoginController extends BaseController
             ),
             new OA\Response(
                 response: 401,
-                description: 'Unauthorized'
+                description: 'Unauthorized',
             )
         ]
     )]
