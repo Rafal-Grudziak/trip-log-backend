@@ -32,17 +32,30 @@ class LoginController extends BaseController
         responses: [
             new OA\Response(
                 response: 200,
-                description: 'Succces',
+                description: 'Success',
                 content: new OA\JsonContent(
                     properties: [
                         new OA\Property(property: 'token', type: 'string', example: 'token'),
-                        new OA\Property(property: 'user'),
+                        new OA\Property(
+                            property: 'user',
+                            properties: [
+                                new OA\Property(property: 'id', type: 'integer', example: 1),
+                                new OA\Property(property: 'email', type: 'string', example: 'user@example.com'),
+                                new OA\Property(property: 'name', type: 'string', example: 'John Doe'),
+                            ],
+                            type: 'object'
+                        ),
                     ]
                 )
             ),
             new OA\Response(
                 response: 401,
-                description: 'Invalid login credentials'
+                description: 'Unauthorized',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'message', type: 'string', example: 'Invalid login credentials.'),
+                    ]
+                )
             )
         ]
     )]
@@ -67,7 +80,7 @@ class LoginController extends BaseController
         }
 
         return response()->json([
-            'message' => 'Invalid login credentials',
+            'message' => 'Invalid login credentials.',
         ], 401);
     }
 
@@ -77,25 +90,24 @@ class LoginController extends BaseController
         summary: 'Logout',
         security: [['sanctum' => []]],
         tags: ['Auth'],
-        parameters: [
-            new OA\Parameter(
-                name: 'Accept',
-                in: 'header',
-                required: true,
-                schema: new OA\Schema(
-                    type: 'string',
-                    default: 'application/json'
-                )
-            )
-        ],
         responses: [
             new OA\Response(
                 response: 200,
-                description: 'Successfully logged out'
+                description: 'Success',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'message', type: 'string', example: 'Successfully logged out.'),
+                    ]
+                )
             ),
             new OA\Response(
                 response: 401,
                 description: 'Unauthorized',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.'),
+                    ]
+                )
             )
         ]
     )]
