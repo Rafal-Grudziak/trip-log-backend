@@ -49,11 +49,32 @@ class LoginController extends BaseController
                 )
             ),
             new OA\Response(
-                response: 401,
-                description: 'Unauthorized',
+                response: 422,
+                description: 'Error: Unprocessable Content',
                 content: new OA\JsonContent(
                     properties: [
-                        new OA\Property(property: 'message', type: 'string', example: 'Invalid login credentials.'),
+                        new OA\Property(property: 'message', type: 'string', example: 'The email field is required. (and 2 more errors)'),
+                        new OA\Property(
+                            property: 'errors',
+                            properties: [
+                                new OA\Property(
+                                    property: 'email',
+                                    type: 'array',
+                                    items: new OA\Items(type: 'string', example: 'The email field is required.')
+                                ),
+                                new OA\Property(
+                                    property: 'password',
+                                    type: 'array',
+                                    items: new OA\Items(type: 'string', example: 'The password field is required.')
+                                ),
+                                new OA\Property(
+                                    property: 'device_name',
+                                    type: 'array',
+                                    items: new OA\Items(type: 'string', example: 'The device name field is required.')
+                                ),
+                            ],
+                            type: 'object'
+                        ),
                     ]
                 )
             )
@@ -75,7 +96,6 @@ class LoginController extends BaseController
 
             return response()->json([
                 'token' => $token,
-                'user' => new UserResource($user),
             ], 200);
         }
 
