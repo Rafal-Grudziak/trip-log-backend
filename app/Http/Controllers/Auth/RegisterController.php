@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use OpenApi\Attributes as OA;
@@ -37,7 +37,6 @@ class RegisterController extends BaseController
                  content: new OA\JsonContent(
                      properties: [
                          new OA\Property(property: 'token', type: 'string', example: 'token'),
-                         new OA\Property(property: 'user'),
                      ]
                  )
              ),
@@ -47,8 +46,8 @@ class RegisterController extends BaseController
              )
          ]
      )]
-    public function register(Request $request)
-    {
+    public function register(Request $request): JsonResponse
+     {
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|email|unique:users',
@@ -66,9 +65,7 @@ class RegisterController extends BaseController
 
         return response()->json([
             'token' => $token,
-            'user' => new UserResource($user),
         ], 201);
     }
-
 
 }

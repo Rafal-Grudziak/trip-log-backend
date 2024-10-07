@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Resources\UserResource;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controllers\HasMiddleware;
-use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use OpenApi\Attributes as OA;
 
@@ -32,21 +30,46 @@ class LoginController extends BaseController
         responses: [
             new OA\Response(
                 response: 200,
-                description: 'Succces',
+                description: 'Success',
                 content: new OA\JsonContent(
                     properties: [
                         new OA\Property(property: 'token', type: 'string', example: 'token'),
-                        new OA\Property(property: 'user'),
                     ]
                 )
             ),
             new OA\Response(
-                response: 401,
-                description: 'Invalid login credentials'
+                response: 422,
+                description: 'Error: Unprocessable Content',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'message', type: 'string', example: 'The email field is required. (and 2 more errors)'),
+                        new OA\Property(
+                            property: 'errors',
+                            properties: [
+                                new OA\Property(
+                                    property: 'email',
+                                    type: 'array',
+                                    items: new OA\Items(type: 'string', example: 'The email field is required.')
+                                ),
+                                new OA\Property(
+                                    property: 'password',
+                                    type: 'array',
+                                    items: new OA\Items(type: 'string', example: 'The password field is required.')
+                                ),
+                                new OA\Property(
+                                    property: 'device_name',
+                                    type: 'array',
+                                    items: new OA\Items(type: 'string', example: 'The device name field is required.')
+                                ),
+                            ],
+                            type: 'object'
+                        ),
+                    ]
+                )
             )
         ]
     )]
-    public function login(Request $request)
+    public function login(Request $request): JsonResponse
     {
         $request->validate([
             'email' => 'required|email',
@@ -62,12 +85,11 @@ class LoginController extends BaseController
 
             return response()->json([
                 'token' => $token,
-                'user' => new UserResource($user),
             ], 200);
         }
 
         return response()->json([
-            'message' => 'Invalid login credentials',
+            'message' => 'Invalid login credentials.',
         ], 401);
     }
 
@@ -77,29 +99,28 @@ class LoginController extends BaseController
         summary: 'Logout',
         security: [['sanctum' => []]],
         tags: ['Auth'],
-        parameters: [
-            new OA\Parameter(
-                name: 'Accept',
-                in: 'header',
-                required: true,
-                schema: new OA\Schema(
-                    type: 'string',
-                    default: 'application/json'
-                )
-            )
-        ],
         responses: [
             new OA\Response(
                 response: 200,
-                description: 'Successfully logged out'
+                description: 'Success',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'message', type: 'string', example: 'Successfully logged out.'),
+                    ]
+                )
             ),
             new OA\Response(
                 response: 401,
                 description: 'Unauthorized',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.'),
+                    ]
+                )
             )
         ]
     )]
-    public function logout(Request $request)
+    public function logout(Request $request): JsonResponse
     {
         $request->user()->currentAccessToken()->delete();
 
