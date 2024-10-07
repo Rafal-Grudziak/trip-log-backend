@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Resources\UserResource;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controllers\HasMiddleware;
-use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use OpenApi\Attributes as OA;
 
@@ -36,15 +34,6 @@ class LoginController extends BaseController
                 content: new OA\JsonContent(
                     properties: [
                         new OA\Property(property: 'token', type: 'string', example: 'token'),
-                        new OA\Property(
-                            property: 'user',
-                            properties: [
-                                new OA\Property(property: 'id', type: 'integer', example: 1),
-                                new OA\Property(property: 'email', type: 'string', example: 'user@example.com'),
-                                new OA\Property(property: 'name', type: 'string', example: 'John Doe'),
-                            ],
-                            type: 'object'
-                        ),
                     ]
                 )
             ),
@@ -80,7 +69,7 @@ class LoginController extends BaseController
             )
         ]
     )]
-    public function login(Request $request)
+    public function login(Request $request): JsonResponse
     {
         $request->validate([
             'email' => 'required|email',
@@ -131,7 +120,7 @@ class LoginController extends BaseController
             )
         ]
     )]
-    public function logout(Request $request)
+    public function logout(Request $request): JsonResponse
     {
         $request->user()->currentAccessToken()->delete();
 

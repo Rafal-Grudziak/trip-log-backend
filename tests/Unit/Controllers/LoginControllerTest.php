@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Auth;
+namespace Tests\Unit\Controllers;
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Models\User;
@@ -11,7 +11,7 @@ use Tests\TestCase;
 class LoginControllerTest extends TestCase
 {
     /** @test */
-    public function login_returns_token_and_user_when_credentials_are_correct()
+    public function login_returns_token_when_credentials_are_correct(): void
     {
         $user = $this->mock(User::class);
 
@@ -33,7 +33,7 @@ class LoginControllerTest extends TestCase
     }
 
     /** @test */
-    public function login_returns_error_when_credentials_are_incorrect()
+    public function login_returns_error_when_credentials_are_incorrect(): void
     {
         $request = new Request([
             'email' => 'user@example.com',

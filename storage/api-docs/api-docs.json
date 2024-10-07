@@ -46,23 +46,6 @@
                                         "token": {
                                             "type": "string",
                                             "example": "token"
-                                        },
-                                        "user": {
-                                            "properties": {
-                                                "id": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                },
-                                                "email": {
-                                                    "type": "string",
-                                                    "example": "user@example.com"
-                                                },
-                                                "name": {
-                                                    "type": "string",
-                                                    "example": "John Doe"
-                                                }
-                                            },
-                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
@@ -212,8 +195,7 @@
                                         "token": {
                                             "type": "string",
                                             "example": "token"
-                                        },
-                                        "user": {}
+                                        }
                                     },
                                     "type": "object"
                                 }
