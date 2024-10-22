@@ -263,14 +263,26 @@
                 ]
             }
         },
-        "/api/profiles": {
+        "/api/profiles/{user}": {
             "get": {
                 "tags": [
                     "Profiles"
                 ],
                 "summary": "Update the user profile",
                 "description": "Allows updating the user's profile including email, name, avatar, bio, and social media links.",
-                "operationId": "3b461a656acde462f307a7def1393b16",
+                "operationId": "fe32c4df9df077f7990aec20c9eab495",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "ID of the user to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful profile retrieval",

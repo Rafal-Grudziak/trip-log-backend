@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\DTOs\ProfileUpdateDto;
 use App\Http\Resources\ProfileResource;
+use App\Models\User;
 use App\Services\ProfileService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -15,11 +16,20 @@ class ProfileController extends BaseController
 {
 
     #[OA\Get(
-        path: '/api/profiles',
+        path: '/api/profiles/{user}',
         description: 'Allows updating the user\'s profile including email, name, avatar, bio, and social media links.',
         summary: 'Update the user profile',
         security: [['sanctum' => []]],
         tags: ['Profiles'],
+        parameters: [
+            new OA\Parameter(
+                name: 'user',
+                description: 'ID of the user to retrieve',
+                in: 'path',
+                required: true,
+                schema: new OA\Schema(type: 'integer', example: 1)
+            )
+        ],
         responses: [
             new OA\Response(
                 response: 200,
@@ -50,9 +60,8 @@ class ProfileController extends BaseController
             )
         ]
     )]
-    public function show(): JsonResponse
+    public function show(User $user): JsonResponse
     {
-        $user = auth()->user();
         return response()->json(new ProfileResource($user));
     }
 
