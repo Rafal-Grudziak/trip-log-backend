@@ -112,6 +112,15 @@ class UserController extends BaseController
                         )
                     ]
                 )
+            ),
+            new OA\Response(
+                response: 401,
+                description: 'Unauthorized',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.'),
+                    ]
+                )
             )
         ]
     )]

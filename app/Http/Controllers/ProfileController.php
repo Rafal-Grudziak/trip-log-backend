@@ -57,6 +57,15 @@ class ProfileController extends BaseController
                         new OA\Property(property: 'message', type: 'string', example: 'User not found')
                     ]
                 )
+            ),
+            new OA\Response(
+                response: 401,
+                description: 'Unauthorized',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.'),
+                    ]
+                )
             )
         ]
     )]
@@ -66,7 +75,7 @@ class ProfileController extends BaseController
     }
 
     #[OA\Put(
-        path: '/api/profiles/update',
+        path: '/api/profiles/{user}/update',
         description: 'Allows updating the user\'s profile including email, name, avatar, bio, and social media links.',
         summary: 'Update the user profile',
         security: [['sanctum' => []]],
@@ -89,6 +98,15 @@ class ProfileController extends BaseController
             )
         ),
         tags: ['Profiles'],
+        parameters: [
+            new OA\Parameter(
+                name: 'user',
+                description: 'ID of the user to retrieve',
+                in: 'path',
+                required: true,
+                schema: new OA\Schema(type: 'integer', example: 1)
+            )
+        ],
         responses: [
             new OA\Response(
                 response: 200,
@@ -141,13 +159,24 @@ class ProfileController extends BaseController
                         )
                     ]
                 )
+            ),
+            new OA\Response(
+                response: 401,
+                description: 'Unauthorized',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.'),
+                    ]
+                )
             )
         ]
     )]
-    public function update(Request $request, ProfileService $profileService): JsonResponse
+    public function update(User $user, Request $request, ProfileService $profileService): JsonResponse
     {
-    dd($request->all());
-        $user = auth()->user();
+        if($user->id !== auth()->id()) {
+            return response()->json(['error' => 'Unauthenticated.'], 401);
+        }
+
         $dto = new ProfileUpdateDto(...$request->validated());
         $updatedUser = $profileService->updateProfile($user, $dto, $request->hasFile('avatar') ? $request->file('avatar') : null);
 

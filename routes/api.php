@@ -21,8 +21,8 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::prefix('profiles')->name('profiles.')->group(function () {
-        Route::put('/update', [ProfileController::class, 'update'])->name('update');
         Route::get('/{user}', [ProfileController::class, 'show'])->name('show');
+        Route::put('/{user}/update', [ProfileController::class, 'update'])->name('update');
     });
 
     Route::prefix('enums')->name('enums.')->group(function () {
