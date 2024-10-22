@@ -29,7 +29,8 @@ class ProfileService
         $user->setAttribute('instagram_link', $dto->instagram_link);
         $user->setAttribute('x_link', $dto->x_link);
         $user->setAttribute('avatar', $avatar);
-        //todo travel preferences
+        $user->travelPreferences()->whereNotIn('travel_preferences.id', $dto->travel_preferences)->delete();
+        $user->travelPreferences()->syncWithoutDetaching($dto->travel_preferences);
 
         return $user;
     }

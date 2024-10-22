@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\DTOs\ProfileUpdateDto;
+use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Resources\ProfileResource;
 use App\Models\User;
 use App\Services\ProfileService;
@@ -43,7 +44,15 @@ class ProfileController extends BaseController
                         new OA\Property(property: 'instagram_link', type: 'string', example: 'https://instagram.com/johndoe'),
                         new OA\Property(property: 'x_link', type: 'string', example: 'https://x.com/johndoe'),
                         new OA\Property(property: 'bio', type: 'string', example: 'Traveler and photographer'),
-                        new OA\Property(property: 'travel_preferences', type: 'array', items: new OA\Items(type: 'string'), example: ['mountains', 'beaches']),
+                        new OA\Property(
+                            property: 'travel_preferences',
+                            type: 'array',
+                            items: new OA\Items(
+                            properties: [
+                                new OA\Property(property: 'id', type: 'integer', example: 5),
+                                new OA\Property(property: 'name', type: 'string', example: 'Deserts')
+                            ]),
+                        ),
                         new OA\Property(property: 'trips_count', type: 'integer', example: 3),
                         new OA\Property(property: 'planned_trips_count', type: 'integer', example: 5),
                     ]
@@ -82,7 +91,7 @@ class ProfileController extends BaseController
         requestBody: new OA\RequestBody(
             required: true,
             content: new OA\MediaType(
-                mediaType: 'multipart/form-data',
+                mediaType: 'application/json',
                 schema: new OA\Schema(
                     properties: [
                         new OA\Property(property: 'email', type: 'string', example: 'user@example.com'),
@@ -92,7 +101,7 @@ class ProfileController extends BaseController
                         new OA\Property(property: 'instagram_link', type: 'string', example: 'https://instagram.com/johndoe'),
                         new OA\Property(property: 'x_link', type: 'string', example: 'https://x.com/johndoe'),
                         new OA\Property(property: 'bio', type: 'string', example: 'Traveler and photographer'),
-                        new OA\Property(property: 'travel_preferences', type: 'array', items: new OA\Items(type: 'string'), example: ['mountains', 'beaches', 'forests']),
+                        new OA\Property(property: 'travel_preferences', type: 'array', items: new OA\Items(type: 'string'), example: ['2', '3']),
                     ]
                 )
             )
@@ -115,12 +124,20 @@ class ProfileController extends BaseController
                     properties: [
                         new OA\Property(property: 'id', type: 'integer', example: 1),
                         new OA\Property(property: 'name', type: 'string', example: 'John Doe'),
-                        new OA\Property(property: 'avatar', type: 'string', example: 'https://example.com/avatar.jpg'),
+//                        new OA\Property(property: 'avatar', type: 'string', example: 'https://example.com/avatar.jpg'),
                         new OA\Property(property: 'facebook_link', type: 'string', example: 'https://facebook.com/johndoe'),
                         new OA\Property(property: 'instagram_link', type: 'string', example: 'https://instagram.com/johndoe'),
                         new OA\Property(property: 'x_link', type: 'string', example: 'https://x.com/johndoe'),
                         new OA\Property(property: 'bio', type: 'string', example: 'Traveler and photographer'),
-                        new OA\Property(property: 'travel_preferences', type: 'array', items: new OA\Items(type: 'string'), example: ['mountains', 'beaches']),
+                        new OA\Property(
+                            property: 'travel_preferences',
+                            type: 'array',
+                            items: new OA\Items(
+                                properties: [
+                                    new OA\Property(property: 'id', type: 'integer', example: 5),
+                                    new OA\Property(property: 'name', type: 'string', example: 'Deserts')
+                                ]),
+                        ),
                         new OA\Property(property: 'trips_count', type: 'integer', example: 3),
                         new OA\Property(property: 'planned_trips_count', type: 'integer', example: 5),
                     ]
@@ -171,7 +188,7 @@ class ProfileController extends BaseController
             )
         ]
     )]
-    public function update(User $user, Request $request, ProfileService $profileService): JsonResponse
+    public function update(User $user, ProfileUpdateRequest $request, ProfileService $profileService): JsonResponse
     {
         if($user->id !== auth()->id()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);

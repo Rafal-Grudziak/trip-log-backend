@@ -22,7 +22,7 @@ class ProfileResource extends JsonResource
             'instagram_link' => $this->resource->instagram_link,
             'x_link' => $this->resource->x_link,
             'bio' => $this->resource->bio,
-            'travel_preferences' => [],
+            'travel_preferences' => EnumResource::collection($this->resource->travelPreferences),
             'trips_count' => 3,
             'planned_trips_count' => 5,
         ];
