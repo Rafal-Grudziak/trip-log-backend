@@ -17,7 +17,7 @@ class UserController extends BaseController
         description: 'Returns the currently authenticated user’s profile data',
         summary: 'Get current authenticated user',
         security: [['sanctum' => []]],
-        tags: ['User'],
+        tags: ['Users'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -64,7 +64,7 @@ class UserController extends BaseController
                 ]
             )
         ),
-        tags: ['User'],
+        tags: ['Users'],
         responses: [
             new OA\Response(
                 response: 200,

@@ -208,14 +208,69 @@
                 }
             }
         },
-        "/api/profile": {
+        "/api/enums/travel-preferences": {
             "get": {
                 "tags": [
-                    "Profile"
+                    "Enums"
+                ],
+                "summary": "Get Travel Preferences",
+                "operationId": "1774aa26626010ab2beab2a447b97dd1",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Mountains"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/profiles": {
+            "get": {
+                "tags": [
+                    "Profiles"
                 ],
                 "summary": "Update the user profile",
                 "description": "Allows updating the user's profile including email, name, avatar, bio, and social media links.",
-                "operationId": "ede45b19680d6fb1319013a741a05734",
+                "operationId": "3b461a656acde462f307a7def1393b16",
                 "responses": {
                     "200": {
                         "description": "Successful profile retrieval",
@@ -299,14 +354,14 @@
                 ]
             }
         },
-        "/api/profile/update": {
+        "/api/profiles/update": {
             "put": {
                 "tags": [
-                    "Profile"
+                    "Profiles"
                 ],
                 "summary": "Update the user profile",
                 "description": "Allows updating the user's profile including email, name, avatar, bio, and social media links.",
-                "operationId": "b37e1c285c5fcd621538c248c3f414a7",
+                "operationId": "40fc6f3db80ef6287eca43d0ed3eac36",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -471,7 +526,7 @@
         "/api/users/me": {
             "get": {
                 "tags": [
-                    "User"
+                    "Users"
                 ],
                 "summary": "Get current authenticated user",
                 "description": "Returns the currently authenticated user’s profile data",
@@ -533,7 +588,7 @@
         "/api/users/me/update-password": {
             "patch": {
                 "tags": [
-                    "User"
+                    "Users"
                 ],
                 "summary": "Update the authenticated user's password",
                 "description": "Allows the authenticated user to update their password by providing the old password and a new one.",
@@ -647,10 +702,14 @@
             "name": "Auth"
         },
         {
-            "name": "Profile"
+            "name": "Enums"
         },
         {
-            "name": "User"
+            "name": "Profiles"
+        },
+        {
+            "name": "Users",
+            "description": "Users"
         }
     ],
     "components": {

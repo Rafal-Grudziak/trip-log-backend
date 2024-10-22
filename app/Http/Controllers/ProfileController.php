@@ -2,28 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\DTOs\PasswordUpdateDto;
 use App\Http\DTOs\ProfileUpdateDto;
-use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Resources\ProfileResource;
-use App\Models\User;
 use App\Services\ProfileService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use OpenApi\Attributes as OA;
 
 
-#[OA\Tag(name: "Profile")]
+#[OA\Tag(name: "Profiles")]
 class ProfileController extends BaseController
 {
 
     #[OA\Get(
-        path: '/api/profile',
+        path: '/api/profiles',
         description: 'Allows updating the user\'s profile including email, name, avatar, bio, and social media links.',
         summary: 'Update the user profile',
         security: [['sanctum' => []]],
-        tags: ['Profile'],
+        tags: ['Profiles'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -61,7 +57,7 @@ class ProfileController extends BaseController
     }
 
     #[OA\Put(
-        path: '/api/profile/update',
+        path: '/api/profiles/update',
         description: 'Allows updating the user\'s profile including email, name, avatar, bio, and social media links.',
         summary: 'Update the user profile',
         security: [['sanctum' => []]],
@@ -83,7 +79,7 @@ class ProfileController extends BaseController
                 )
             )
         ),
-        tags: ['Profile'],
+        tags: ['Profiles'],
         responses: [
             new OA\Response(
                 response: 200,
