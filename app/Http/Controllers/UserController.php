@@ -128,7 +128,7 @@ class UserController extends BaseController
     {
         $request->validate([
             'old_password' => 'required|string',
-            'password' => 'required|string|confirmed',
+            'password' => 'required|string|confirmed|min:8',
         ] );
 
         $user = auth()->user();
