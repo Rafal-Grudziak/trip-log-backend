@@ -18,8 +18,8 @@ class ProfileController extends BaseController
 
     #[OA\Get(
         path: '/api/profiles/{user}',
-        description: 'Allows updating the user\'s profile including email, name, avatar, bio, and social media links.',
-        summary: 'Update the user profile',
+        description: 'Get user\'s profile information including email, name, avatar, bio, and social media links.',
+        summary: 'Get user\'s profile',
         security: [['sanctum' => []]],
         tags: ['Profiles'],
         parameters: [
@@ -86,7 +86,7 @@ class ProfileController extends BaseController
     #[OA\Put(
         path: '/api/profiles/{user}/update',
         description: 'Allows updating the user\'s profile including email, name, avatar, bio, and social media links.',
-        summary: 'Update the user profile',
+        summary: 'Update user\'s profile',
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(
             required: true,

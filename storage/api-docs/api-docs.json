@@ -268,8 +268,8 @@
                 "tags": [
                     "Profiles"
                 ],
-                "summary": "Update the user profile",
-                "description": "Allows updating the user's profile including email, name, avatar, bio, and social media links.",
+                "summary": "Get user's profile",
+                "description": "Get user's profile information including email, name, avatar, bio, and social media links.",
                 "operationId": "fe32c4df9df077f7990aec20c9eab495",
                 "parameters": [
                     {
@@ -393,7 +393,7 @@
                 "tags": [
                     "Profiles"
                 ],
-                "summary": "Update the user profile",
+                "summary": "Update user's profile",
                 "description": "Allows updating the user's profile including email, name, avatar, bio, and social media links.",
                 "operationId": "a315759a216aac12ec4ed4b3be95f837",
                 "parameters": [
