@@ -42,7 +42,28 @@ class RegisterController extends BaseController
              ),
              new OA\Response(
                  response: 422,
-                 description: 'Validation error'
+                 description: 'Error: Unprocessable Content',
+                 content: new OA\JsonContent(
+                     properties: [
+                         new OA\Property(property: 'message', type: 'string', example: 'The email field is required. (and 2 more errors)'),
+                         new OA\Property(
+                             property: 'errors',
+                             properties: [
+                                 new OA\Property(
+                                     property: 'email',
+                                     type: 'array',
+                                     items: new OA\Items(type: 'string', example: 'The email field is required.')
+                                 ),
+                                 new OA\Property(
+                                     property: 'password',
+                                     type: 'array',
+                                     items: new OA\Items(type: 'string', example: 'The password field is required.')
+                                 ),
+                             ],
+                             type: 'object'
+                         ),
+                     ]
+                 )
              )
          ]
      )]

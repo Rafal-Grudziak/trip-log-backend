@@ -45,7 +45,7 @@
                                     "properties": {
                                         "token": {
                                             "type": "string",
-                                            "example": "token"
+                                            "example": "xxxxxxxxxxxxxx"
                                         }
                                     },
                                     "type": "object"
@@ -77,13 +77,6 @@
                                                     "items": {
                                                         "type": "string",
                                                         "example": "The password field is required."
-                                                    }
-                                                },
-                                                "device_name": {
-                                                    "type": "array",
-                                                    "items": {
-                                                        "type": "string",
-                                                        "example": "The device name field is required."
                                                     }
                                                 }
                                             },
@@ -203,7 +196,39 @@
                         }
                     },
                     "422": {
-                        "description": "Validation error"
+                        "description": "Error: Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The email field is required. (and 2 more errors)"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "email": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The email field is required."
+                                                    }
+                                                },
+                                                "password": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The password field is required."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -654,7 +679,7 @@
                     "Users"
                 ],
                 "summary": "Update the authenticated user's password",
-                "description": "Allows the authenticated user to update their password by providing the old password and a new one.",
+                "description": "Allows the authenticated user to update their password by providing the current password and a new one.",
                 "operationId": "901cb77e6b205804b65cf58cb9951c01",
                 "requestBody": {
                     "required": true,
@@ -662,7 +687,7 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "old_password": {
+                                    "current_password": {
                                         "description": "The current password of the user",
                                         "type": "string",
                                         "example": "password123"
@@ -701,14 +726,14 @@
                         }
                     },
                     "400": {
-                        "description": "The old password is incorrect",
+                        "description": "The current password is incorrect",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "The old password is incorrect"
+                                            "example": "The current password is incorrect"
                                         }
                                     },
                                     "type": "object"
@@ -728,11 +753,11 @@
                                         },
                                         "errors": {
                                             "properties": {
-                                                "old_password": {
+                                                "current_password": {
                                                     "type": "array",
                                                     "items": {
                                                         "type": "string",
-                                                        "example": "The old password field is required."
+                                                        "example": "The current password field is required."
                                                     }
                                                 },
                                                 "password": {

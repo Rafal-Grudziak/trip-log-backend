@@ -33,7 +33,7 @@ class LoginController extends BaseController
                 description: 'Success',
                 content: new OA\JsonContent(
                     properties: [
-                        new OA\Property(property: 'token', type: 'string', example: 'token'),
+                        new OA\Property(property: 'token', type: 'string', example: 'xxxxxxxxxxxxxx'),
                     ]
                 )
             ),
@@ -55,11 +55,6 @@ class LoginController extends BaseController
                                     property: 'password',
                                     type: 'array',
                                     items: new OA\Items(type: 'string', example: 'The password field is required.')
-                                ),
-                                new OA\Property(
-                                    property: 'device_name',
-                                    type: 'array',
-                                    items: new OA\Items(type: 'string', example: 'The device name field is required.')
                                 ),
                             ],
                             type: 'object'

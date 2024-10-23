@@ -51,14 +51,14 @@ class UserController extends BaseController
 
     #[OA\Patch(
         path: '/api/users/me/update-password',
-        description: 'Allows the authenticated user to update their password by providing the old password and a new one.',
+        description: 'Allows the authenticated user to update their password by providing the current password and a new one.',
         summary: 'Update the authenticated user\'s password',
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(
             required: true,
             content: new OA\JsonContent(
                 properties: [
-                    new OA\Property(property: 'old_password', description: 'The current password of the user', type: 'string', example: 'password123'),
+                    new OA\Property(property: 'current_password', description: 'The current password of the user', type: 'string', example: 'password123'),
                     new OA\Property(property: 'password', description: 'The new password to set', type: 'string', example: 'newPassword123'),
                     new OA\Property(property: 'password_confirmation', description: 'Confirmation of the new password', type: 'string', example: 'newPassword123'),
                 ]
@@ -77,10 +77,10 @@ class UserController extends BaseController
             ),
             new OA\Response(
                 response: 400,
-                description: 'The old password is incorrect',
+                description: 'The current password is incorrect',
                 content: new OA\JsonContent(
                     properties: [
-                        new OA\Property(property: 'message', type: 'string', example: 'The old password is incorrect')
+                        new OA\Property(property: 'message', type: 'string', example: 'The current password is incorrect')
                     ]
                 )
             ),
@@ -98,9 +98,9 @@ class UserController extends BaseController
                             property: 'errors',
                             properties: [
                                 new OA\Property(
-                                    property: 'old_password',
+                                    property: 'current_password',
                                     type: 'array',
-                                    items: new OA\Items(type: 'string', example: 'The old password field is required.')
+                                    items: new OA\Items(type: 'string', example: 'The current password field is required.')
                                 ),
                                 new OA\Property(
                                     property: 'password',
@@ -127,14 +127,14 @@ class UserController extends BaseController
     public function updatePassword(Request $request): JsonResponse
     {
         $request->validate([
-            'old_password' => 'required|string',
-            'password' => 'required|string|confirmed|min:8',
+            'current_password' => 'required|string',
+            'password' => 'required|string|confirmed|min:8|different:current_password',
         ] );
 
         $user = auth()->user();
 
-        if (!Hash::check($request->old_password, $user->password)) {
-            return response()->json(['message' => 'The old password is incorrect'], 400);
+        if (!Hash::check($request->current_password, $user->password)) {
+            return response()->json(['message' => 'The current password is incorrect'], 400);
         }
 
         $user->update(['password' => Hash::make($request->password)]);
