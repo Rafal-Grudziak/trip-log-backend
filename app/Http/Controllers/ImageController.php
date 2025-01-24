@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\DTOs\ImageStoreDTO;
-use App\Http\DTOs\TimeLineIndexDTO;
+use App\Http\DTOs\TimelineIndexDTO;
 use App\Http\Requests\Image\ImageStoreRequest;
-use App\Http\Requests\TimeLine\TimeLineIndexRequest;
-use App\Http\Resources\TimeLineResource;
+use App\Http\Requests\Timeline\TimelineIndexRequest;
+use App\Http\Resources\TimelineResource;
 use App\Http\Responses\PaginatedResponse;
 use App\Services\ImageService;
-use App\Services\TimeLineService;
+use App\Services\TimelineService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;

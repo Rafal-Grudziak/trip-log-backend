@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\DTOs\TimeLineIndexDTO;
-use App\Http\Requests\TimeLine\TimeLineIndexRequest;
-use App\Http\Resources\TimeLineResource;
+use App\Http\DTOs\TimelineIndexDTO;
+use App\Http\Requests\Timeline\TimelineIndexRequest;
+use App\Http\Resources\TimelineResource;
 use App\Http\Responses\PaginatedResponse;
-use App\Services\TimeLineService;
+use App\Services\TimelineService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use OpenApi\Attributes as OA;
 
-#[OA\Tag(name: "TimeLine")]
-class TimeLineController extends BaseController
+#[OA\Tag(name: "Timeline")]
+class TimelineController extends BaseController
 {
 
     #[OA\Get(
         path: '/api/timeline',
         summary: 'Get related travels',
         security: [['sanctum' => []]],
-        tags: ['TimeLine'],
+        tags: ['Timeline'],
         parameters: [
             new OA\Parameter(
                 name: 'page',
@@ -109,11 +109,11 @@ class TimeLineController extends BaseController
             )
         ]
     )]
-    public function index(TimeLineIndexRequest $request, TimelineService $timelineService): JsonResponse
+    public function index(TimelineIndexRequest $request, TimelineService $timelineService): JsonResponse
     {
 
-        $dto = new TimeLineIndexDTO(...$request->validated());
-        return PaginatedResponse::format($timelineService->filter($dto)->paginate(10), TimeLineResource::class);
+        $dto = new TimelineIndexDTO(...$request->validated());
+        return PaginatedResponse::format($timelineService->filter($dto)->paginate(10), TimelineResource::class);
 
     }
 

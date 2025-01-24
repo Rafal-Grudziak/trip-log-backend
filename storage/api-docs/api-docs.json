@@ -1406,7 +1406,7 @@
         "/api/timeline": {
             "get": {
                 "tags": [
-                    "TimeLine"
+                    "Timeline"
                 ],
                 "summary": "Get related travels",
                 "operationId": "0b42b4462659ced88c1e3e5de2b539d8",
@@ -3206,7 +3206,7 @@
             "name": "Profiles"
         },
         {
-            "name": "TimeLine"
+            "name": "Timeline"
         },
         {
             "name": "Travels"

@@ -2,7 +2,7 @@
 
 namespace App\Filters;
 
-class TimeLineIndexFilter extends BaseIndexFilter
+class TimelineIndexFilter extends BaseIndexFilter
 {
     public function filter(): void
     {

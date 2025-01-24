@@ -2,7 +2,7 @@
 
 namespace App\Http\DTOs;
 
-readonly class TimeLineIndexDTO implements FilterDto
+readonly class TimelineIndexDTO implements FilterDto
 {
     public function __construct(
         public readonly int $page = 1,

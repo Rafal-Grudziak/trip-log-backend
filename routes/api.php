@@ -6,7 +6,7 @@ use App\Http\Controllers\EnumController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TimeLineController;
+use App\Http\Controllers\TimelineController;
 use App\Http\Controllers\TravelController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +19,7 @@ Route::prefix('/auth')->group(function () {
 
 Route::middleware(['auth:sanctum', 'api'])->group(function () {
 
-    Route::get('/timeline', [TimeLineController::class, 'index']);
+    Route::get('/timeline', [TimelineController::class, 'index']);
 
     Route::post('/images', [ImageController::class, 'store']);
 

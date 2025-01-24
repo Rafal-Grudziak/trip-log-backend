@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\TimeLine;
+namespace App\Http\Requests\Timeline;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TimeLineIndexRequest extends FormRequest
+class TimelineIndexRequest extends FormRequest
 {
     public function rules(): array
     {
