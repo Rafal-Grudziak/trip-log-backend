@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Http\DTOs\TravelStoreDTO;
+use App\Dtos\TravelStoreDto;
 use App\Models\Travel;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -27,7 +27,7 @@ class TravelService extends ModelService
             ->paginate($perPage);
     }
 
-    public function storeTravel(TravelStoreDTO $dto): Travel
+    public function storeTravel(TravelStoreDto $dto): Travel
     {
         $travel = $this->getModel()->newInstance();
         $travel = $this->setTravelValues($travel, $dto);
@@ -42,7 +42,7 @@ class TravelService extends ModelService
         return $travel;
     }
 
-    public function updateTravel(TravelStoreDTO $dto, Travel $travel): Travel
+    public function updateTravel(TravelStoreDto $dto, Travel $travel): Travel
     {
         $travel = $this->setTravelValues($travel, $dto);
         $travel->save();
@@ -78,7 +78,7 @@ class TravelService extends ModelService
         $travel->delete();
     }
 
-    private function setTravelValues(Travel $travel, TravelStoreDTO $dto): Travel
+    private function setTravelValues(Travel $travel, TravelStoreDto $dto): Travel
     {
         $travel->fill([
             'name' => $dto->name,

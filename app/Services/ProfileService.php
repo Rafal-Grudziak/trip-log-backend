@@ -2,13 +2,11 @@
 
 namespace App\Services;
 
-use App\Http\DTOs\ProfileSearchDTO;
-use App\Http\DTOs\ProfileUpdateDTO;
-use App\Http\Resources\ProfileBasicResource;
+use App\Dtos\ProfileSearchDto;
+use App\Dtos\ProfileUpdateDto;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 
 class ProfileService extends ModelService
 {
@@ -18,7 +16,7 @@ class ProfileService extends ModelService
         return User::class;
     }
 
-    public function updateProfile(User $user, ProfileUpdateDTO $dto): User
+    public function updateProfile(User $user, ProfileUpdateDto $dto): User
     {
 
         $user = $this->setUserValues($user, $dto);
@@ -35,7 +33,7 @@ class ProfileService extends ModelService
 //            ->paginate(10);
 //    }
 
-    public function search(ProfileSearchDTO $dto): LengthAwarePaginator
+    public function search(ProfileSearchDto $dto): LengthAwarePaginator
     {
         $userId = auth()->id();
 
@@ -56,7 +54,7 @@ class ProfileService extends ModelService
         return $results;
     }
 
-    private function setUserValues(User $user, ProfileUpdateDTO $dto): User
+    private function setUserValues(User $user, ProfileUpdateDto $dto): User
     {
         if ($dto->avatar) {
             if ($user->avatar) {

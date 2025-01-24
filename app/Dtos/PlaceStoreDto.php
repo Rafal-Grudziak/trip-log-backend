@@ -1,11 +1,8 @@
 <?php
 
-namespace App\Http\DTOs;
+namespace App\Dtos;
 
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-
-readonly class PlaceStoreDTO
+readonly class PlaceStoreDto
 {
     public function __construct(
         public string $name,

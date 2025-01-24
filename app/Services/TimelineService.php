@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
+use App\Dtos\TimelineIndexDto;
 use App\Filters\BaseIndexFilter;
 use App\Filters\TimelineIndexFilter;
-use App\Http\DTOs\TimelineIndexDTO;
 use App\Models\Travel;
 
 class TimelineService extends ModelService
@@ -15,7 +15,7 @@ class TimelineService extends ModelService
         return Travel::class;
     }
 
-    public function filter(TimelineIndexDTO $dto): BaseIndexFilter
+    public function filter(TimelineIndexDto $dto): BaseIndexFilter
     {
         return app()->make(TimelineIndexFilter::class, [
             'builder' => $this->getModelQuery(),

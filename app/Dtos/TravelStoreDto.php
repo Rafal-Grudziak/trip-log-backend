@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\DTOs;
+namespace App\Dtos;
 
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-readonly class TravelStoreDTO
+readonly class TravelStoreDto
 {
     public Collection $places;
 
@@ -27,7 +25,7 @@ readonly class TravelStoreDTO
     {
 
         foreach ($places as $key => $place) {
-            $places[$key] = new PlaceStoreDTO(...$place);
+            $places[$key] = new PlaceStoreDto(...$place);
         }
         $this->places = collect($places);
     }

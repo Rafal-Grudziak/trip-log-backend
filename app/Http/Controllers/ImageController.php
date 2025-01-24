@@ -2,19 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\DTOs\ImageStoreDTO;
-use App\Http\DTOs\TimelineIndexDTO;
+use App\Dtos\ImageStoreDto;
 use App\Http\Requests\Image\ImageStoreRequest;
-use App\Http\Requests\Timeline\TimelineIndexRequest;
-use App\Http\Resources\TimelineResource;
-use App\Http\Responses\PaginatedResponse;
+use App\Models\Travel;
 use App\Services\ImageService;
-use App\Services\TimelineService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use OpenApi\Attributes as OA;
-use App\Models\Travel;
 
 #[OA\Tag(name: "Images")]
 class ImageController extends BaseController
@@ -87,7 +81,7 @@ class ImageController extends BaseController
     )]
     public function store(ImageStoreRequest $request, ImageService $imageService): JsonResponse
     {
-        $dto = new ImageStoreDTO(...$request->validated());
+        $dto = new ImageStoreDto(...$request->validated());
         $image = $imageService->store($dto);
 
         return response()->json(['url' => Storage::url($image->path)]);

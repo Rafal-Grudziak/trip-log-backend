@@ -2,7 +2,7 @@
 
 namespace App\Filters;
 
-use App\Http\DTOs\FilterDto;
+use App\Dtos\FilterDto;
 use Illuminate\Database\Eloquent\Builder;
 
 abstract class BaseIndexFilter

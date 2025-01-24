@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\DTOs\TimelineIndexDTO;
+use App\Dtos\TimelineIndexDto;
 use App\Http\Requests\Timeline\TimelineIndexRequest;
 use App\Http\Resources\TimelineResource;
 use App\Http\Responses\PaginatedResponse;
 use App\Services\TimelineService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use OpenApi\Attributes as OA;
 
 #[OA\Tag(name: "Timeline")]
@@ -112,7 +111,7 @@ class TimelineController extends BaseController
     public function index(TimelineIndexRequest $request, TimelineService $timelineService): JsonResponse
     {
 
-        $dto = new TimelineIndexDTO(...$request->validated());
+        $dto = new TimelineIndexDto(...$request->validated());
         return PaginatedResponse::format($timelineService->filter($dto)->paginate(10), TimelineResource::class);
 
     }

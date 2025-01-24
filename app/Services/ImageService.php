@@ -2,12 +2,8 @@
 
 namespace App\Services;
 
-use App\Http\DTOs\ImageStoreDTO;
-use App\Http\DTOs\PlaceStoreDTO;
+use App\Dtos\ImageStoreDto;
 use App\Models\Image;
-use App\Models\Place;
-use App\Models\Travel;
-use Illuminate\Support\Facades\File;
 
 class ImageService extends ModelService
 {
@@ -18,7 +14,7 @@ class ImageService extends ModelService
     }
 
 
-    public function store(ImageStoreDTO $dto): Image
+    public function store(ImageStoreDto $dto): Image
     {
         $image = $this->getModel()->newInstance();
         $image->setAttribute('imageable_type', $dto->imageable_type);

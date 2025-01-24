@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\DTOs\TravelStoreDTO;
+use App\Dtos\TravelStoreDto;
 use App\Http\Requests\Travel\TravelDeleteRequest;
 use App\Http\Requests\Travel\TravelListRequest;
 use App\Http\Requests\Travel\TravelShowRequest;
@@ -12,13 +12,10 @@ use App\Http\Requests\Travel\TravelUpdateRequest;
 use App\Http\Resources\TravelListResource;
 use App\Http\Resources\TravelShowResource;
 use App\Http\Responses\PaginatedResponse;
-use App\Models\Friend;
 use App\Models\Travel;
 use App\Models\User;
 use App\Services\TravelService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use OpenApi\Attributes as OA;
 
 #[OA\Tag(name: "Travels")]
@@ -259,7 +256,7 @@ class TravelController extends BaseController
     )]
     public function store(TravelStoreRequest $request, TravelService $travelService): JsonResponse
     {
-        $dto = new TravelStoreDTO(...$request->validated());
+        $dto = new TravelStoreDto(...$request->validated());
 
         $createdTravel = $travelService->storeTravel($dto);
 
@@ -391,7 +388,7 @@ class TravelController extends BaseController
     )]
     public function update(TravelUpdateRequest $request, TravelService $travelService, Travel $travel): JsonResponse
     {
-        $dto = new TravelStoreDTO(...$request->validated());
+        $dto = new TravelStoreDto(...$request->validated());
         $updatedTravel = $travelService->updateTravel($dto, $travel);
 
         return response()->json(new TravelShowResource($updatedTravel));

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\DTOs;
+namespace App\Dtos;
 
-readonly class TimelineIndexDTO implements FilterDto
+readonly class TimelineIndexDto implements FilterDto
 {
     public function __construct(
         public readonly int $page = 1,

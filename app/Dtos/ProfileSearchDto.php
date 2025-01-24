@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Http\DTOs;
+namespace App\Dtos;
 
-use Illuminate\Http\Request;
-
-readonly class ProfileSearchDTO
+readonly class ProfileSearchDto
 {
     public function __construct(
         public int $page = 1,

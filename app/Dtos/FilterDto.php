@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\DTOs;
+namespace App\Dtos;
 
 interface FilterDto
 {

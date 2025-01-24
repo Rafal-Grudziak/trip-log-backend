@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Http\DTOs\PlaceStoreDTO;
+use App\Dtos\PlaceStoreDto;
 use App\Models\Place;
 use App\Models\Travel;
 
@@ -15,7 +15,7 @@ class PlaceService extends ModelService
     }
 
 
-    public function store(Travel $travel, PlaceStoreDTO $dto): Place
+    public function store(Travel $travel, PlaceStoreDto $dto): Place
     {
         $place = $this->getModel()->newInstance();
         $place->setAttribute('travel_id', $travel->id);
@@ -25,7 +25,7 @@ class PlaceService extends ModelService
         return $place;
     }
 
-    public function update(PlaceStoreDTO $dto, Place $place): Place
+    public function update(PlaceStoreDto $dto, Place $place): Place
     {
         $place = $this->setPlaceValues($place, $dto);
         $place->save();
@@ -33,7 +33,7 @@ class PlaceService extends ModelService
         return $place;
     }
 
-    protected function setPlaceValues(Place $place, PlaceStoreDTO $dto): Place
+    protected function setPlaceValues(Place $place, PlaceStoreDto $dto): Place
     {
         $place->setAttribute('name', $dto->name);
         $place->setAttribute('description', $dto->description);

@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\DTOs;
+namespace App\Dtos;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 
-readonly class ProfileUpdateDTO
+readonly class ProfileUpdateDto
 {
     public function __construct(
         public ?string $email = null,
