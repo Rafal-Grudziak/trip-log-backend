@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Http\DTOs;
-
-use Illuminate\Http\Request;
+namespace App\Dtos;
 
 readonly class ProfileSearchDto
 {

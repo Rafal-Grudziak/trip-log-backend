@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\DTOs\ProfileSearchDto;
-use App\Http\DTOs\ProfileUpdateDto;
-use App\Http\Requests\ProfileSearchRequest;
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Dtos\ProfileSearchDto;
+use App\Dtos\ProfileUpdateDto;
+use App\Http\Requests\Profile\ProfileSearchRequest;
+use App\Http\Requests\Profile\ProfileUpdateRequest;
 use App\Http\Resources\ProfileListResource;
 use App\Http\Resources\ProfileResource;
 use App\Http\Responses\PaginatedResponse;
@@ -42,7 +42,7 @@ class ProfileController extends BaseController
                     properties: [
                         new OA\Property(property: 'id', type: 'integer', example: 1),
                         new OA\Property(property: 'name', type: 'string', example: 'John Doe'),
-                        new OA\Property(property: 'avatar', type: 'string', example: 'https://example.com/avatar.jpg'),
+                        new OA\Property(property: 'avatar', type: 'string', example: 'http://localhost/storage/avatars/gKlbUY4YuSJ4PttnzXiuf3cBTugJy5Yxqr9rd8Si.png'),
                         new OA\Property(property: 'facebook_link', type: 'string', example: 'https://facebook.com/johndoe'),
                         new OA\Property(property: 'instagram_link', type: 'string', example: 'https://instagram.com/johndoe'),
                         new OA\Property(property: 'x_link', type: 'string', example: 'https://x.com/johndoe'),
@@ -56,8 +56,8 @@ class ProfileController extends BaseController
                                 new OA\Property(property: 'name', type: 'string', example: 'Deserts')
                             ]),
                         ),
-                        new OA\Property(property: 'trips_count', type: 'integer', example: 3),
-                        new OA\Property(property: 'planned_trips_count', type: 'integer', example: 5),
+                        new OA\Property(property: 'finished_travels_count', type: 'integer', example: 3),
+                        new OA\Property(property: 'planned_travels_count', type: 'integer', example: 5),
                     ]
                 )
             ),
@@ -86,7 +86,7 @@ class ProfileController extends BaseController
         return response()->json(new ProfileResource($user));
     }
 
-    #[OA\Put(
+    #[OA\Post(
         path: '/api/profiles/{user}/update',
         description: 'Allows updating the user\'s profile including email, name, avatar, bio, and social media links.',
         summary: 'Update user\'s profile',
@@ -94,7 +94,7 @@ class ProfileController extends BaseController
         requestBody: new OA\RequestBody(
             required: true,
             content: new OA\MediaType(
-                mediaType: 'application/json',
+                mediaType: 'multipart/form-data',
                 schema: new OA\Schema(
                     properties: [
                         new OA\Property(property: 'email', type: 'string', example: 'user@example.com'),
@@ -104,7 +104,11 @@ class ProfileController extends BaseController
                         new OA\Property(property: 'instagram_link', type: 'string', example: 'https://instagram.com/johndoe'),
                         new OA\Property(property: 'x_link', type: 'string', example: 'https://x.com/johndoe'),
                         new OA\Property(property: 'bio', type: 'string', example: 'Traveler and photographer'),
-                        new OA\Property(property: 'travel_preferences', type: 'array', items: new OA\Items(type: 'string'), example: ['2', '3']),
+                        new OA\Property(
+                            property: 'travel_preferences[]',
+                            type: 'array',
+                            items: new OA\Items(type: 'integer', example: 1),
+                        ),
                     ]
                 )
             )
@@ -127,7 +131,7 @@ class ProfileController extends BaseController
                     properties: [
                         new OA\Property(property: 'id', type: 'integer', example: 1),
                         new OA\Property(property: 'name', type: 'string', example: 'John Doe'),
-//                        new OA\Property(property: 'avatar', type: 'string', example: 'https://example.com/avatar.jpg'),
+                        new OA\Property(property: 'avatar', type: 'string', example: 'http://localhost/storage/avatars/gKlbUY4YuSJ4PttnzXiuf3cBTugJy5Yxqr9rd8Si.png'),
                         new OA\Property(property: 'facebook_link', type: 'string', example: 'https://facebook.com/johndoe'),
                         new OA\Property(property: 'instagram_link', type: 'string', example: 'https://instagram.com/johndoe'),
                         new OA\Property(property: 'x_link', type: 'string', example: 'https://x.com/johndoe'),
@@ -214,7 +218,7 @@ class ProfileController extends BaseController
                 name: 'query',
                 description: 'Search query to filter profiles.',
                 in: 'query',
-                required: true,
+                required: false,
                 schema: new OA\Schema(type: 'string', example: 'John')
             ),
             new OA\Parameter(
@@ -238,7 +242,7 @@ class ProfileController extends BaseController
                                 properties: [
                                     new OA\Property(property: 'id', type: 'integer', example: 1),
                                     new OA\Property(property: 'name', type: 'string', example: 'John Doe'),
-                                    new OA\Property(property: 'avatar', type: 'string', example: 'https://example.com/avatar.jpg'),
+                                    new OA\Property(property: 'avatar', type: 'string', example: 'http://localhost/storage/avatars/gKlbUY4YuSJ4PttnzXiuf3cBTugJy5Yxqr9rd8Si.png'),
                                     new OA\Property(property: 'bio', type: 'string', example: 'Traveler and photographer'),
                                     new OA\Property(property: 'friend_status', type: 'integer', example: 1),
                                     new OA\Property(property: 'received_request_id', type: 'integer', example: 1),

@@ -1,11 +1,16 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Friend;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 class SendFriendRequestRequest extends FormRequest
 {
+    public function authorize(): bool
+    {
+        return true;
+    }
+
     public function rules()
     {
         return [

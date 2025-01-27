@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileResource extends JsonResource
 {
@@ -17,14 +18,14 @@ class ProfileResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'name' => $this->resource->name,
-            'avatar' => $this->resource->avatar,
+            'avatar' => $this->resource->avatar ? Storage::url($this->resource->avatar) : null,
             'facebook_link' => $this->resource->facebook_link,
             'instagram_link' => $this->resource->instagram_link,
             'x_link' => $this->resource->x_link,
             'bio' => $this->resource->bio,
             'travel_preferences' => EnumResource::collection($this->resource->travelPreferences),
-            'trips_count' => 3, //todo
-            'planned_trips_count' => 5, //todo
+            'finished_travels_count' => $this->resource->travels()->finished()->count(),
+            'planned_travels_count' => $this->resource->travels()->planned()->count(),
         ];
     }
 }

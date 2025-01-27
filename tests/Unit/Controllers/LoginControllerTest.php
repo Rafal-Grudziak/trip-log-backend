@@ -23,7 +23,7 @@ class LoginControllerTest extends TestCase
 
         Auth::shouldReceive('attempt')->once()->andReturn(true);
         Auth::shouldReceive('user')->once()->andReturn($user);
-        $user->shouldReceive('createToken')->once()->andReturn((object)['plainTextToken' => 'token']);
+        $user->shouldReceive('createToken')->once()->andReturn((object)['token' => 'token']);
 
         $controller = new LoginController();
         $response = $controller->login($request);

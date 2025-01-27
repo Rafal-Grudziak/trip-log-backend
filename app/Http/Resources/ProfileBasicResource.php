@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileBasicResource extends JsonResource
 {
@@ -17,7 +18,7 @@ class ProfileBasicResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'name' => $this->resource->name,
-            'avatar' => $this->resource->avatar,
+            'avatar' => $this->resource->avatar ? Storage::url($this->resource->avatar) : null,
             'bio' => $this->resource->bio,
         ];
     }

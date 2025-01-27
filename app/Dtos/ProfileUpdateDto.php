@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\DTOs;
+namespace App\Dtos;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 readonly class ProfileUpdateDto
 {
@@ -13,7 +13,8 @@ readonly class ProfileUpdateDto
         public ?string $facebook_link = null,
         public ?string $instagram_link = null,
         public ?string $x_link = null,
-        public array   $travel_preferences = []
+        public ?array  $travel_preferences = null,
+        public ?UploadedFile $avatar = null,
     )
     {
     }

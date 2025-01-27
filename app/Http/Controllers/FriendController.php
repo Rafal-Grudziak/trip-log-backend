@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SendFriendRequestRequest;
+use App\Http\Requests\Friend\SendFriendRequestRequest;
 use App\Http\Resources\FriendRequestResource;
 use App\Http\Resources\ProfileBasicResource;
 use App\Http\Responses\PaginatedResponse;

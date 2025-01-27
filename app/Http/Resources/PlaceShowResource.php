@@ -2,11 +2,11 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Storage;
 
-class UserResource extends JsonResource
+class PlaceShowResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +17,12 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
-            'email' => $this->resource->email,
             'name' => $this->resource->name,
-            'avatar' => $this->resource->avatar ? Storage::url($this->resource->avatar) : null,
+            'description' => $this->resource->description,
+            'category' => new EnumResource($this->resource->category),
+            'longitude' => $this->resource->longitude,
+            'latitude' => $this->resource->latitude,
+            'images' => ImageResource::collection($this->resource->images),
         ];
     }
 }
