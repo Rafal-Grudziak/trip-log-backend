@@ -12,7 +12,7 @@ abstract class ModelService
     protected function getModel(): Model
     {
         $modelClass = $this->getModelClass();
-        return new $modelClass;
+        return app($modelClass);
     }
 
     public function getModelQuery(): Builder

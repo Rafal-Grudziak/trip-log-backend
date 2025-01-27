@@ -6,6 +6,7 @@ use App\Dtos\TravelStoreDto;
 use App\Models\Travel;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class TravelService extends ModelService
@@ -31,7 +32,7 @@ class TravelService extends ModelService
     {
         $travel = $this->getModel()->newInstance();
         $travel = $this->setTravelValues($travel, $dto);
-        $travel->user_id = auth()->id();
+        $travel->user_id = Auth::id();
         $travel->favourite = false;
         $travel->save();
 
@@ -80,14 +81,12 @@ class TravelService extends ModelService
 
     private function setTravelValues(Travel $travel, TravelStoreDto $dto): Travel
     {
-        $travel->fill([
-            'name' => $dto->name,
-            'description' => $dto->description,
-            'from' => $dto->from,
-            'to' => $dto->to,
-            'longitude' => $dto->longitude,
-            'latitude' => $dto->latitude,
-        ]);
+        $travel->setAttribute('name', $dto->name);
+        $travel->setAttribute('description', $dto->description);
+        $travel->setAttribute('from', $dto->from);
+        $travel->setAttribute('to', $dto->to);
+        $travel->setAttribute('longitude', $dto->longitude);
+        $travel->setAttribute('latitude', $dto->latitude);
 
         return $travel;
     }

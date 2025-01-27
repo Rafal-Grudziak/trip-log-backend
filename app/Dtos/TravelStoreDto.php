@@ -23,7 +23,6 @@ readonly class TravelStoreDto
 
     protected function processPlaces(array $places): void
     {
-
         foreach ($places as $key => $place) {
             $places[$key] = new PlaceStoreDto(...$place);
         }
